@@ -6,28 +6,15 @@ spl_autoload_register(function ($class){
     }
 });
 
-use app\Model\Model;
-
 use app\Controller\Controller;
 
-use app\View\View;
+use app\Controller\IndexController;
 
-$model = new Model();
+use app\Router\Router;
 
-$controller = new Controller($model);
+$router = new Router;
 
-class SimpleView extends View {
+$router->get('/', [IndexController::class, 'index']);
 
-    public function __construct(Model $model, Controller $controller) {
-        parent::__construct($controller, $model); 
-    }
-
-    public function echoText() {
-        echo $this->output();
-    }
-    
-}
-
-$output = new SimpleView($model, $controller);
-$output->echoText();
-
+echo $router->resolve();
+?>

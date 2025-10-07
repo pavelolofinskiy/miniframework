@@ -2,16 +2,10 @@
 
 namespace App\Controller;
 
-class Controller
+abstract class Controller
 
 {
 
-private $model;
-
-public function __construct($model) {
-
-$this->model = $model;
-
-}
+    abstract function index();
 
 }
