@@ -10,11 +10,15 @@ use app\Controller\Controller;
 
 use app\Controller\IndexController;
 
+use app\Controller\ProductsController;
+
 use app\Router\Router;
 
 $router = new Router;
 
 $router->get('/', [IndexController::class, 'index']);
+$router->get('/products', [ProductsController::class, 'index']);
 
-echo $router->resolve();
+$router->resolve();
+
 ?>

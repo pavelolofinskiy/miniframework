@@ -6,6 +6,6 @@ use app\Controller\Controller;
 
 class ProductsController extends Controller {
     public function index() {
-        echo 'Hi, I am your new controller';
+        echo 'Do you want some apples?';
     }
 }

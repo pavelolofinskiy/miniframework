@@ -6,6 +6,6 @@ use app\Controller\Controller;
 
 class IndexController extends Controller {
     public function index() {
-        echo 'Hi, I am your new controller';
+        $this->view('app/View/IndexView.php');
     }
 }
