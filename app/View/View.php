@@ -3,25 +3,15 @@
 namespace App\View;
 
 class View
-
 {
 
-private $model;
+    public function render($TemplatePath, $data) {
+        $file = file_get_contents('app/View/' . $TemplatePath . '.php');
 
-private $controller;
+        foreach ($data as $key => $value) {
+                $output = str_replace('{{ ' . $key . ' }}', $value, $file);
+        }
 
-public function __construct($controller,$model) {
-
-$this->controller = $controller;
-
-$this->model = $model;
-
-}
-
-public function output(){
-
-return "<p style='font-size:25px'>" . $this->model->string . "</p>";
-
-}
-
+        echo $output;
+    }
 }

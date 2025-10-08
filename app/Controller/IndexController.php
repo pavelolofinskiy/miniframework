@@ -6,6 +6,7 @@ use app\Controller\Controller;
 
 class IndexController extends Controller {
     public function index() {
-        $this->view('app/View/IndexView.php');
+        $data['mydata'] = 'lol';
+        $this->view('IndexView', $data);
     }
 }

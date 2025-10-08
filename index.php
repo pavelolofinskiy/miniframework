@@ -1,4 +1,11 @@
 <?php
+
+use app\Controller\IndexController;
+
+use app\Controller\ProductsController;
+
+use app\Router\Router;
+
 spl_autoload_register(function ($class){
     $path = str_replace('\\','/',$class).".php";
     if(file_exists($path)){
@@ -6,13 +13,7 @@ spl_autoload_register(function ($class){
     }
 });
 
-use app\Controller\Controller;
 
-use app\Controller\IndexController;
-
-use app\Controller\ProductsController;
-
-use app\Router\Router;
 
 $router = new Router;
 
