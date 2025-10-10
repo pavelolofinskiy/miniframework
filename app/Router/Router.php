@@ -22,14 +22,21 @@ class Router
         $path = $_SERVER['REQUEST_URI'] ?? '/';
         $path = explode('?', $path)[0];
         
-        if(strpos(array_keys($this->routes['GET'])[0], "{id}")) {
-            $parts = explode('/', trim($path, '/'));
-            $id = end($parts);
-            $parsed_path = str_replace($id, '{id}', array_keys($this->routes['GET'])[0]);
-            
-            $callback = $this->routes[$method][$parsed_path] ?? null;
-        } else {
-            $callback = $this->routes[$method][$path] ?? null;
+        $callback = null;
+        $id = null;
+
+        foreach ($this->routes[$method] ?? [] as $routePath => $routeCallback) {
+            if (strpos($routePath, '{id}') !== false) {
+                $pattern = '#^' . str_replace('{id}', '(\d+)', $routePath) . '$#';
+                if (preg_match($pattern, $path, $matches)) {
+                    $callback = $routeCallback;
+                    $id = $matches[1];
+                    break;
+                }
+            } elseif ($routePath === $path) {
+                $callback = $routeCallback;
+                break;
+            }
         }
 
         
