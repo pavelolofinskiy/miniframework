@@ -17,8 +17,11 @@ spl_autoload_register(function ($class){
 
 $router = new Router;
 
+
+$router->get('/products/{id}', [ProductsController::class, 'show']);
 $router->get('/', [IndexController::class, 'index']);
 $router->get('/products', [ProductsController::class, 'index']);
+
 
 $router->resolve();
 

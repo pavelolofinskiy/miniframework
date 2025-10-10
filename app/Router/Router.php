@@ -22,7 +22,16 @@ class Router
         $path = $_SERVER['REQUEST_URI'] ?? '/';
         $path = explode('?', $path)[0];
         
-        $callback = $this->routes[$method][$path] ?? null;
+        if(strpos(array_keys($this->routes['GET'])[0], "{id}")) {
+            $parts = explode('/', trim($path, '/'));
+            $id = end($parts);
+            $parsed_path = str_replace($id, '{id}', array_keys($this->routes['GET'])[0]);
+            
+            $callback = $this->routes[$method][$parsed_path] ?? null;
+        } else {
+            $callback = $this->routes[$method][$path] ?? null;
+        }
+
         
         if ($callback === null) {
             http_response_code(404);
@@ -32,7 +41,11 @@ class Router
         if (is_array($callback)) {
             [$class, $method] = $callback;
             $controller = new $class();
-            return $controller->$method();
+            if (isset($id)) {
+                return $controller->$method($id);
+            } else {
+                return $controller->$method();
+            }
         }
         
         return $callback();
