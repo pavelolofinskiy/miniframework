@@ -3,9 +3,9 @@
 namespace App\Router;
 
 class Request {
-    public $method;
+    protected $method;
 
-    public $path;
+    protected  $path;
 
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];

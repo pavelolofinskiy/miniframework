@@ -8,5 +8,7 @@ class IndexController extends Controller {
     public function index() {
         $data['mydata'] = 'lol';
         $this->view('IndexView', $data);
+
+        
     }
 }
