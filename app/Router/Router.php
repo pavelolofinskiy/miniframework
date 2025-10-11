@@ -2,6 +2,9 @@
 
 namespace App\Router;
 
+use app\Router\Request;
+use app\View\View;
+
 class Router
 {
     private array $routes = [];
@@ -18,31 +21,13 @@ class Router
     
     public function resolve(): mixed
     {
-        $method = $_SERVER['REQUEST_METHOD'];
-        $path = $_SERVER['REQUEST_URI'] ?? '/';
-        $path = explode('?', $path)[0];
+        $request = new Request($this->routes);
         
-        $callback = null;
-        $id = null;
+        [$callback, $id] = $request->parseUrl($this->routes);
 
-        foreach ($this->routes[$method] ?? [] as $routePath => $routeCallback) {
-            if (strpos($routePath, '{id}') !== false) {
-                $pattern = '#^' . str_replace('{id}', '(\d+)', $routePath) . '$#';
-                if (preg_match($pattern, $path, $matches)) {
-                    $callback = $routeCallback;
-                    $id = $matches[1];
-                    break;
-                }
-            } elseif ($routePath === $path) {
-                $callback = $routeCallback;
-                break;
-            }
-        }
-
-        
         if ($callback === null) {
-            http_response_code(404);
-            return "404 Not Found";
+            $view = new View;
+            return $view->render('NotFoundView');
         }
         
         if (is_array($callback)) {

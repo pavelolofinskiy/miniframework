@@ -12,4 +12,8 @@ class ProductsController extends Controller {
     public function show($id) {
         print_r($id . 'hi'); die;
     }
+
+    public function edit($id) {
+        print_r($id . 'edit'); die;
+    }
 }

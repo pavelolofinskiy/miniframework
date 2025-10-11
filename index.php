@@ -19,6 +19,7 @@ $router = new Router;
 
 
 $router->get('/products/{id}', [ProductsController::class, 'show']);
+$router->get('/products/{id}/edit', [ProductsController::class, 'edit']);
 $router->get('/', [IndexController::class, 'index']);
 $router->get('/products', [ProductsController::class, 'index']);
 

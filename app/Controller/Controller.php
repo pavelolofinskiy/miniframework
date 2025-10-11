@@ -19,4 +19,9 @@ abstract class Controller
     public function view($path, $data = []) {
         $this->view->render($path, $data);
     }
+
+    public function notFound()
+    {
+        $this->view('NotFoundView');
+    }
 }
