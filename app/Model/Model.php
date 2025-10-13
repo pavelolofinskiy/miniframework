@@ -6,16 +6,14 @@ use Db\Database;
 class Model extends Database
 
 {
-
-public $string;
-
     public function __construct()
     {
-            $this->getConnection();
+        $this->getConnection();
     }
 
     public function createTable(string $tableName, array $columns): void
     {
+        try {
         $cols = [];
 
         foreach ($columns as $name => $type) {
@@ -27,10 +25,27 @@ public $string;
         $sql = "CREATE TABLE IF NOT EXISTS `$tableName` ($columnsSql)";
 
         $this->pdo->exec($sql);
+        } catch (\PDOException $e) {
+            echo "Database Error: " . $e->getMessage();
+        }
     }
 
     public function all($tableName){
-        $sql = "SELECT * FROM `$tableName`";
-        $this->pdo->exec($sql);
+        try {
+            $sql = "SELECT * FROM `$tableName`";
+            return $this->pdo->exec($sql);
+        } catch (\PDOException $e) {
+            echo "Database Error: " . $e->getMessage();
+        }
+
+    }
+
+    public function add($tableName, $columnName, $value) {
+        try {
+            $sql = "INSERT INTO `$tableName` ($columnName) VALUES ($value)";
+            return $this->pdo->exec($sql);
+        } catch (\PDOException $e) {
+            echo "Database Error: " . $e->getMessage();
+        }
     }
 }

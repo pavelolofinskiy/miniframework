@@ -5,7 +5,7 @@ namespace Db;
 abstract class Database {
     protected $pdo;
 
-    public function __construct() {
+    public function getConnection() {
         $host = 'localhost'; 
         $dbname = 'miniframework'; 
         $username = 'root'; 
@@ -24,9 +24,6 @@ abstract class Database {
             echo "Connection failed: " . $e->getMessage();
             exit(); 
         }
-    }
-
-    public function getConnection() {
         return $this->pdo;
     }
 }

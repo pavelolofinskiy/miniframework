@@ -4,6 +4,7 @@ namespace App\Router;
 
 use app\Router\Request;
 use app\View\View;
+use app\Exceptions\NotFoundException;
 
 class Router
 {
@@ -26,8 +27,7 @@ class Router
         [$callback, $id] = $request->parseUrl($this->routes);
 
         if ($callback === null) {
-            $view = new View;
-            return $view->render('NotFoundView');
+            throw new NotFoundException("Маршрут не найден: " . $_SERVER['REQUEST_URI']);
         }
         
         if (is_array($callback)) {
