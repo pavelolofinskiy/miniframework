@@ -2,7 +2,7 @@
 
 namespace app\Controller;
 
-use app\Controller\Controller;
+use core\Controller\Controller;
 
 class IndexController extends Controller {
     public function index() {

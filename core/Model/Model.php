@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Model;
+namespace core\Model;
 use Db\Database;
 
 class Model extends Database
 
 {
+
+    protected string $table;
+
     public function __construct()
     {
         $this->getConnection();
+        if (!isset($this->table)) {
+            $this->table = $this->inferTableName();
+        }
     }
 
     public function createTable(string $tableName, array $columns): void
@@ -40,9 +46,20 @@ class Model extends Database
 
     }
 
-    public function add($tableName, $columnName, $value) {
+    protected function inferTableName(): string
+    {
+        $className = (new \ReflectionClass($this))->getShortName();
+
+        $table = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $className)) . 's';
+
+        return $table;
+    }
+
+    public function add($columnName, $value) {
         try {
-            $sql = "INSERT INTO `$tableName` ($columnName) VALUES ($value)";
+            print_r($columnName);
+            print_r($value);
+            $sql = "INSERT INTO `$this->table` (`$columnName`) VALUES (`$value`)";
             return $this->pdo->exec($sql);
         } catch (\PDOException $e) {
             echo "Database Error: " . $e->getMessage();

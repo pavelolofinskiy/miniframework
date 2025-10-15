@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Router;
+namespace core\Http;
 
 class Request {
     protected $method;

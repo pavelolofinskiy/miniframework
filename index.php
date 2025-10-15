@@ -1,10 +1,10 @@
 <?php
 
-use app\Controller\IndexController;
+use core\Router\Router;
 
-use app\Controller\ProductsController;
+use core\Http\Request;
 
-use app\Router\Router;
+use app\web\Web;
 
 spl_autoload_register(function ($class){
     $path = str_replace('\\','/',$class).".php";
@@ -13,17 +13,12 @@ spl_autoload_register(function ($class){
     }
 });
 
+$request = new Request;
 
+$router = new Router($request);
 
-$router = new Router;
+$urls = new Web($router);
 
-
-$router->get('/products/{id}', [ProductsController::class, 'show']);
-$router->get('/products/{id}/edit', [ProductsController::class, 'edit']);
-$router->get('/', [IndexController::class, 'index']);
-$router->get('/products', [ProductsController::class, 'index']);
-
-
-$router->resolve();
+$urls->run();
 
 ?>

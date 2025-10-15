@@ -2,9 +2,9 @@
 
 namespace app\Controller;
 
-use app\Controller\Controller;
+use core\Controller\Controller;
 
-use app\Model\Model;
+use App\Model\Product;
 
 class ProductsController extends Controller {
     public function index() {
@@ -12,17 +12,15 @@ class ProductsController extends Controller {
     }
 
     public function show($id) {
-        $model = new Model;
-
-        $model->createTable('products', [
-            'id' => 'INT AUTO_INCREMENT PRIMARY KEY',
-            'name' => 'VARCHAR(255) NOT NULL',
-            'price' => 'DECIMAL(10,2) NOT NULL',
-        ]);
         print_r($id . 'hi'); 
     }
 
     public function edit($id) {
-        print_r($id . 'edit'); die;
+        print_r($id . 'edit'); 
+    }
+
+    public function add() {
+        $product = new Product;
+        $product->add('name', 'test');
     }
 }

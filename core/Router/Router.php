@@ -1,14 +1,18 @@
 <?php 
 
-namespace App\Router;
+namespace core\Router;
 
-use app\Router\Request;
-use app\View\View;
 use app\Exceptions\NotFoundException;
 
 class Router
 {
     private array $routes = [];
+
+    private $request;
+
+    public function __construct($request) {
+        $this->request = $request;
+    }
     
     public function get(string $path, callable|array $callback): void
     {
@@ -22,9 +26,8 @@ class Router
     
     public function resolve(): mixed
     {
-        $request = new Request($this->routes);
         
-        [$callback, $id] = $request->parseUrl($this->routes);
+        [$callback, $id] = $this->request->parseUrl($this->routes);
 
         if ($callback === null) {
             throw new NotFoundException("Маршрут не найден: " . $_SERVER['REQUEST_URI']);
