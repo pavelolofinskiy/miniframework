@@ -20,7 +20,6 @@ class Web {
         $this->router->get('/products', [ProductsController::class, 'index']);
         $this->router->get('/products/add', [ProductsController::class, 'add']);
 
-
         $this->router->resolve();
     }
 }
