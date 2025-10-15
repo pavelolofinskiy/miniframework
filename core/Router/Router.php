@@ -35,14 +35,20 @@ class Router
         
         if (is_array($callback)) {
             [$class, $method] = $callback;
+
             $controller = new $class();
+        
             if (isset($id)) {
                 return $controller->$method($id);
             } else {
-                return $controller->$method();
+                return $controller->$method($this->request);
             }
         }
         
         return $callback();
+    }
+
+    public function name($name) {
+        print_r($name); die;
     }
 }

@@ -15,6 +15,7 @@ class Web {
 
     public function run() {
         $this->router->get('/products/{id}', [ProductsController::class, 'show']);
+        $this->router->post('/products/test', [ProductsController::class, 'test']);
         $this->router->get('/products/{id}/edit', [ProductsController::class, 'edit']);
         $this->router->get('/', [IndexController::class, 'index']);
         $this->router->get('/products', [ProductsController::class, 'index']);

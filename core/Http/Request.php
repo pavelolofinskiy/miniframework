@@ -3,9 +3,9 @@
 namespace core\Http;
 
 class Request {
-    protected $method;
+    public $method;
 
-    protected  $path;
+    public  $path;
 
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
@@ -33,6 +33,9 @@ class Request {
         }
 
         return [$callback, $id];
+    }
 
+    public function all() {
+        return $_POST;
     }
 }

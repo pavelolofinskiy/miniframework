@@ -10,12 +10,16 @@ use app\web\Web;
 
 class Kernel {
     public function handle() {
-        $request = new Request;
+        try {
+            $request = new Request;
 
-        $router = new Router($request);
+            $router = new Router($request);
 
-        $urls = new Web($router);
+            $urls = new Web($router);
 
-        $urls->run();
+            $urls->run();
+        } catch(\Throwable $e) {
+            echo "Ошибка:" . $e->getMessage();
+        }
     }
 }

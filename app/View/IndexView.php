@@ -55,7 +55,15 @@
             Розпочніть із створення першого контролера та підключення представлення,
             щоб зібрати свій перший вебзастосунок.
         </p>
-        {{ mydata }}
+        <form method="POST" action="{{ url }}">
+            <label>Ім'я</label>
+            <input type="text" name="username" placeholder="Введите имя">
+
+            <label>Комментарій:</label>
+            <textarea name="comment" placeholder="Ваш комментарий"></textarea>
+
+            <button type="submit">Відправити</button>
+        </form>
         <div class="footer">
             Працює на My Mini Framework 
         </div>

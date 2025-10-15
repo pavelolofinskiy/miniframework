@@ -2,12 +2,12 @@
 
 namespace core\Controller;
 
-use app\View\View;
+use core\View\View;
 
 abstract class Controller
 
 {
-    abstract function index();
+    abstract function index($request);
 
     protected $view;
 
