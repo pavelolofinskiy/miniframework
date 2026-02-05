@@ -6,10 +6,12 @@ use app\Controller\ProductsController;
 
 use app\Controller\IndexController;
 
+use core\Router\Router;
+
 class Web {
     private $router;
 
-    public function __construct($router) {
+    public function __construct(Router $router) {
         $this->router = $router;
     }
 

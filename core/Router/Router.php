@@ -4,13 +4,15 @@ namespace core\Router;
 
 use app\Exceptions\NotFoundException;
 
+use core\Http\Request;
+
 class Router
 {
     private array $routes = [];
 
     private $request;
 
-    public function __construct($request) {
+    public function __construct(Request $request) {
         $this->request = $request;
     }
     

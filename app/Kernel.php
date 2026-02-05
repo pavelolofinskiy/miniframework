@@ -1,25 +1,19 @@
-<?php 
-
+<?php
 namespace app;
 
-use core\Router\Router;
-
-use core\Http\Request;
-
+use core\DI\Container;
 use app\web\Web;
 
 class Kernel {
     public function handle() {
         try {
-            $request = new Request;
+            $container = new Container();
 
-            $router = new Router($request);
+            $web = $container->get(Web::class);
 
-            $urls = new Web($router);
-
-            $urls->run();
-        } catch(\Throwable $e) {
-            echo "Ошибка:" . $e->getMessage();
+            $web->run();
+        } catch (\Throwable $e) {
+            echo "Ошибка: " . $e->getMessage();
         }
     }
 }
