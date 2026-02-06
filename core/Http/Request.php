@@ -38,4 +38,25 @@ class Request {
     public function all() {
         return $_POST;
     }
+
+    public function user() {
+        return $_SESSION['user'] ?? null;
+    }
+
+    public function input(string $key, $default = null) {
+        return $_POST[$key] ?? $_GET[$key] ?? $default;
+    }
+
+    public function query(string $key, $default = null) {
+        return $_GET[$key] ?? $default;
+    }
+
+    public function header(string $key, $default = null) {
+        $key = 'HTTP_' . strtoupper(str_replace('-', '_', $key));
+        return $_SERVER[$key] ?? $default;
+    }
+
+    public function getUri(): string {
+        return $_SERVER['REQUEST_URI'] ?? '/';
+    }
 }
